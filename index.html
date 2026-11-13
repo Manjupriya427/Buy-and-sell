@@ -7,901 +7,1763 @@
 <title>ReMarket | Buy & Sell</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
-
-:root{--green:#668b70;--light:#e8efe7;--ink:#354b3b;--muted:#788579}
-
-body{background:#f7f8f3;color:var(--ink)}
-
-header{height:68px;background:#fff;border-bottom:1px solid #e3eae1;display:flex;align-items:center;gap:16px;padding:0 22px;position:sticky;top:0;z-index:3}
-
-.menu{font-size:24px;background:none;padding:7px;color:var(--ink);border:0;cursor:pointer}
-
-.logo{font-size:22px;font-weight:800;color:var(--green);margin-right:auto}
-
-.btn{border:0;border-radius:8px;padding:10px 14px;font-weight:700;cursor:pointer}
-
-.green{background:var(--green);color:white}
-.soft{background:var(--light);color:var(--green)}
-.outline{background:white;border:1px solid #dce5dc;color:var(--ink)}
-
-.layout{display:flex;min-height:calc(100vh - 68px)}
-
-aside{width:225px;background:#fff;border-right:1px solid #e3eae1;padding:20px 12px;flex-shrink:0}
-
-.nav{width:100%;text-align:left;background:transparent;padding:13px 14px;margin:3px 0;border-radius:8px;color:#536457;font-weight:600;border:0;cursor:pointer}
-
-.nav:hover,.nav.active{background:var(--light);color:var(--green)}
-
-main{padding:26px;width:100%;max-width:1450px;margin:auto}
-
-.page{display:none}
-.page.active{display:block}
-
-.hero{background:linear-gradient(120deg,#dce9dd,#f7f8f3);padding:28px;border-radius:16px;margin-bottom:22px}
-
-.hero h1{font-size:clamp(25px,4vw,36px);margin-bottom:9px}
-.hero p{color:var(--muted);line-height:1.5}
-
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
-
-.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:22px 0 14px}
-
-input,textarea,select{width:100%;padding:11px 12px;border:1px solid #d1ddcf;border-radius:8px;background:#fff;margin:7px 0 13px;font-size:14px}
-
-label{font-size:13px;font-weight:700;color:#536457}
-
-.form-card,.info-card{background:white;border:1px solid #e3eae1;border-radius:13px;padding:20px;max-width:650px}
-
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-
-.product{background:#fff;border:1px solid #e3eae1;border-radius:13px;padding:12px;overflow:hidden}
-
-.product img{width:100%;height:165px;object-fit:cover;border-radius:9px;background:#edf2eb}
-
-.product h3{font-size:17px;margin:11px 0 6px}
-.desc{font-size:14px;line-height:1.4;color:var(--muted);min-height:38px}
-
-.price{color:var(--green);font-size:20px;font-weight:800;margin:10px 0}
-
-.meta{font-size:12px;color:var(--muted);margin:8px 0 12px}
-
-.product-actions{display:flex;gap:7px;flex-wrap:wrap}
-.product-actions button{flex:1;padding:9px 8px;font-size:12px}
-
-.empty{background:#fff;padding:25px;border-radius:12px;color:var(--muted);text-align:center}
-
-.message{background:#fff;border:1px solid #e3eae1;border-radius:10px;padding:14px;margin:10px 0;line-height:1.5}
-
-.small{font-size:12px;color:var(--muted);line-height:1.5}
-
-.auth-wrap{min-height:calc(100vh - 68px);display:grid;place-items:center;padding:20px}
-
-.auth{background:#fff;border:1px solid #e3eae1;border-radius:16px;padding:26px;width:min(420px,100%);box-shadow:0 8px 30px #354b3b10}
-
-.auth h1{color:var(--green);margin-bottom:7px}
-.auth p{color:var(--muted);margin-bottom:18px;font-size:14px}
-
-.link{border:0;background:none;color:var(--green);font-weight:700;cursor:pointer}
-
-footer{text-align:center;padding:18px;color:var(--muted);font-size:12px}
-
-.submission-img{width:130px;height:110px;object-fit:cover;border-radius:9px;margin-bottom:10px;background:#edf2eb}
-
-.badge{display:inline-block;background:var(--light);color:var(--green);padding:4px 8px;border-radius:6px;font-size:12px;font-weight:bold}
-
-@media(max-width:700px){
-header{padding:0 13px}
-aside{position:fixed;z-index:5;top:68px;bottom:0;left:-240px;transition:left .2s;box-shadow:4px 0 16px #0001}
-aside.open{left:0}
-main{padding:16px}
-.hero{padding:21px}
-.layout{display:block}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
 }
 
-#notice{display:none;position:fixed;right:18px;bottom:18px;z-index:20;background:#668b70;color:#fff;padding:12px 16px;border-radius:9px;max-width:min(360px,calc(100vw - 36px));box-shadow:0 6px 20px #0002}
+:root{
+    --green:#668b70;
+    --light:#e8efe7;
+    --ink:#354b3b;
+    --muted:#788579;
+}
+
+body{
+    background:#f7f8f3;
+    color:var(--ink);
+}
+
+header{
+    height:68px;
+    background:#fff;
+    border-bottom:1px solid #e3eae1;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:0 22px;
+    position:sticky;
+    top:0;
+    z-index:3;
+}
+
+.menu{
+    font-size:24px;
+    background:none;
+    padding:7px;
+    color:var(--ink);
+    border:0;
+    cursor:pointer;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:800;
+    color:var(--green);
+    margin-right:auto;
+}
+
+.btn{
+    border:0;
+    border-radius:8px;
+    padding:10px 14px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.green{
+    background:var(--green);
+    color:white;
+}
+
+.soft{
+    background:var(--light);
+    color:var(--green);
+}
+
+.outline{
+    background:white;
+    border:1px solid #dce5dc;
+    color:var(--ink);
+}
+
+.layout{
+    display:flex;
+    min-height:calc(100vh - 68px);
+}
+
+aside{
+    width:225px;
+    background:#fff;
+    border-right:1px solid #e3eae1;
+    padding:20px 12px;
+    flex-shrink:0;
+}
+
+.nav{
+    width:100%;
+    text-align:left;
+    background:transparent;
+    padding:13px 14px;
+    margin:3px 0;
+    border-radius:8px;
+    color:#536457;
+    font-weight:600;
+    border:0;
+    cursor:pointer;
+}
+
+.nav:hover,.nav.active{
+    background:var(--light);
+    color:var(--green);
+}
+
+main{
+    padding:26px;
+    width:100%;
+    max-width:1450px;
+    margin:auto;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.hero{
+    background:linear-gradient(120deg,#dce9dd,#f7f8f3);
+    padding:28px;
+    border-radius:16px;
+    margin-bottom:22px;
+}
+
+.hero h1{
+    font-size:clamp(25px,4vw,36px);
+    margin-bottom:9px;
+}
+
+.hero p{
+    color:var(--muted);
+    line-height:1.5;
+}
+
+.actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:22px 0 14px;
+}
+
+input,textarea,select{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid #d1ddcf;
+    border-radius:8px;
+    background:#fff;
+    margin:7px 0 13px;
+    font-size:14px;
+}
+
+label{
+    font-size:13px;
+    font-weight:700;
+    color:#536457;
+}
+
+.form-card,.info-card{
+    background:white;
+    border:1px solid #e3eae1;
+    border-radius:13px;
+    padding:20px;
+    max-width:650px;
+}
+
+/* Product card layout */
+.grid,.message-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:16px;
+    align-items:start;
+}
+
+.message-grid .message{
+    margin:0;
+    min-width:0;
+}
+
+.product{
+    background:#fff;
+    border:1px solid #e3eae1;
+    border-radius:13px;
+    padding:12px;
+    overflow:hidden;
+}
+
+.product img{
+    width:100%;
+    height:165px;
+    object-fit:cover;
+    border-radius:9px;
+    background:#edf2eb;
+}
+
+.product h3{
+    font-size:17px;
+    margin:11px 0 6px;
+}
+
+.desc{
+    font-size:14px;
+    line-height:1.4;
+    color:var(--muted);
+    min-height:38px;
+}
+
+.price{
+    color:var(--green);
+    font-size:20px;
+    font-weight:800;
+    margin:10px 0;
+}
+
+.meta{
+    font-size:12px;
+    color:var(--muted);
+    margin:8px 0 12px;
+}
+
+.product-actions{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+}
+
+.product-actions button{
+    flex:1;
+    padding:9px 8px;
+    font-size:12px;
+}
+
+.empty{
+    background:#fff;
+    padding:25px;
+    border-radius:12px;
+    color:var(--muted);
+    text-align:center;
+    grid-column:1/-1;
+}
+
+.message{
+    background:#fff;
+    border:1px solid #e3eae1;
+    border-radius:10px;
+    padding:14px;
+    margin:10px 0;
+    line-height:1.5;
+    overflow-wrap:anywhere;
+}
+
+.small{
+    font-size:12px;
+    color:var(--muted);
+    line-height:1.5;
+}
+
+.auth-wrap{
+    min-height:calc(100vh - 68px);
+    display:grid;
+    place-items:center;
+    padding:20px;
+}
+
+.auth{
+    background:#fff;
+    border:1px solid #e3eae1;
+    border-radius:16px;
+    padding:26px;
+    width:min(420px,100%);
+    box-shadow:0 8px 30px #354b3b10;
+}
+
+.auth h1{
+    color:var(--green);
+    margin-bottom:7px;
+}
+
+.auth p{
+    color:var(--muted);
+    margin-bottom:18px;
+    font-size:14px;
+}
+
+.link{
+    border:0;
+    background:none;
+    color:var(--green);
+    font-weight:700;
+    cursor:pointer;
+}
+
+footer{
+    text-align:center;
+    padding:18px;
+    color:var(--muted);
+    font-size:12px;
+}
+
+.submission-img{
+    width:130px;
+    height:110px;
+    object-fit:cover;
+    border-radius:9px;
+    margin-bottom:10px;
+    background:#edf2eb;
+}
+
+.badge{
+    display:inline-block;
+    background:var(--light);
+    color:var(--green);
+    padding:4px 8px;
+    border-radius:6px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+#notice{
+    display:none;
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    z-index:20;
+    background:#668b70;
+    color:#fff;
+    padding:12px 16px;
+    border-radius:9px;
+    max-width:min(360px,calc(100vw - 36px));
+    box-shadow:0 6px 20px #0002;
+}
+
+@media(max-width:700px){
+    header{
+        padding:0 13px;
+    }
+
+    aside{
+        position:fixed;
+        z-index:5;
+        top:68px;
+        bottom:0;
+        left:-240px;
+        transition:left .2s;
+        box-shadow:4px 0 16px #0001;
+    }
+
+    aside.open{
+        left:0;
+    }
+
+    main{
+        padding:16px;
+    }
+
+    .hero{
+        padding:21px;
+    }
+
+    .layout{
+        display:block;
+    }
+
+    .grid,.message-grid{
+        grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    }
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<button class="menu" onclick="toggleMenu()">☰</button>
-<div class="logo">♻ ReMarket</div>
-<span id="userLabel" class="small"></span>
+    <button class="menu" onclick="toggleMenu()">☰</button>
+    <div class="logo">♻ ReMarket</div>
+    <span id="userLabel" class="small"></span>
 </header>
+
+<!-- LOGIN AND REGISTER -->
 
 <div id="authView" class="auth-wrap">
 <section class="auth">
-<h1>ReMarket</h1>
-<p>Buy better. Sell simply.</p>
 
-<h2 id="authHeading">Create account</h2>
+    <h1>ReMarket</h1>
+    <p>Buy better. Sell simply.</p>
 
-<form id="authForm">
-<div id="nameWrap">
-<label>Name</label>
-<input id="name" placeholder="Your name" required>
-</div>
+    <h2 id="authHeading">Create account</h2>
 
-<label>Email</label>
-<input id="email" type="email" placeholder="you@example.com" required>
+    <form id="authForm">
 
-<label>Password</label>
-<input id="password" type="password" minlength="4" placeholder="At least 4 characters" required>
+        <div id="nameWrap">
+            <label>Name</label>
+            <input id="name" placeholder="Your name" required>
+        </div>
 
-<div id="roleWrap">
-<label>Register as</label>
-<select id="role">
-<option value="buyer">Buyer</option>
-<option value="seller">Seller</option>
-</select>
-</div>
+        <label>Email</label>
+        <input id="email" type="email" placeholder="you@example.com" required>
 
-<button class="btn green" style="width:100%;margin:8px 0 14px" id="authSubmit">Register</button>
-</form>
+        <label>Password</label>
+        <input id="password" type="password"
+        minlength="4" placeholder="At least 4 characters" required>
 
-<p id="authSwitch">
-Already have an account?
-<button class="link" onclick="switchAuth()">Login</button>
-</p>
+        <div id="roleWrap">
+            <label>Register as</label>
+            <select id="role">
+                <option value="buyer">Buyer</option>
+                <option value="seller">Seller</option>
+            </select>
+        </div>
+
+        <button class="btn green"
+        style="width:100%;margin:8px 0 14px"
+        id="authSubmit">Register</button>
+
+    </form>
+
+    <p id="authSwitch">
+        Already have an account?
+        <button class="link" onclick="switchAuth()">Login</button>
+    </p>
+
 </section>
 </div>
+
+<!-- MAIN APPLICATION -->
 
 <div id="appView" class="layout" style="display:none">
 
 <aside id="sidebar">
-<div id="navItems"></div>
-<button class="nav" onclick="navigate('termsPage')">ⓘ Terms & Conditions</button>
-<button class="nav" onclick="logout()">↪ Logout</button>
+
+    <div id="navItems"></div>
+
+    <button class="nav" onclick="navigate('termsPage')">
+        ⓘ Terms & Conditions
+    </button>
+
+    <button class="nav" onclick="logout()">
+        ↪ Logout
+    </button>
+
 </aside>
 
 <main>
 
+<!-- HOME PAGE -->
+
 <section id="homePage" class="page active">
-<div class="hero">
-<h1 id="welcomeTitle">Welcome to ReMarket</h1>
-<p id="welcomeText">Quality pre-loved products at affordable prices.</p>
-<div class="actions" id="homeActions"></div>
-</div>
 
-<div class="section-head">
-<h2 id="homeSectionTitle">Available products</h2>
-<button class="btn outline" onclick="navigate('buyPage')">View all</button>
-</div>
+    <div class="hero">
 
-<div id="recentProducts" class="grid"></div>
+        <h1 id="welcomeTitle">Welcome to ReMarket</h1>
+
+        <p id="welcomeText">
+            Quality pre-loved products at affordable prices.
+        </p>
+
+        <div class="actions" id="homeActions"></div>
+
+    </div>
+
+    <div class="section-head">
+
+        <h2 id="homeSectionTitle">Available products</h2>
+
+        <button id="viewAllBtn" class="btn outline"
+        onclick="navigate('buyPage')">
+            View all
+        </button>
+
+    </div>
+
+    <div id="recentProducts" class="grid"></div>
+
 </section>
+
+<!-- SELLER PAGE -->
 
 <section id="sellerPage" class="page">
-<div class="section-head">
-<h2>Sell to ReMarket</h2>
-</div>
 
-<p class="small">Submit your used product and expected price. ReMarket will review it and send you a purchase offer.</p>
+    <div class="section-head">
+        <h2>Sell to ReMarket</h2>
+    </div>
 
-<form id="productForm" class="form-card">
-<label>Product name</label>
-<input id="pname" required placeholder="e.g. Study table">
+    <p class="small">
+        Submit your used product and expected price.
+        ReMarket will review it and send you a purchase offer.
+    </p>
 
-<label>Description</label>
-<textarea id="description" required placeholder="Condition, features and details"></textarea>
+    <form id="productForm" class="form-card">
 
-<label>Your expected price (₹)</label>
-<input id="price" type="number" min="1" required placeholder="Enter expected price">
+        <label>Product name</label>
+        <input id="pname" required placeholder="e.g. Study table">
 
-<label>Category</label>
-<select id="category">
-<option>Electronics</option>
-<option>Furniture</option>
-<option>Books</option>
-<option>Clothing</option>
-<option>Vehicles</option>
-<option>Home & Kitchen</option>
-<option>Other</option>
-</select>
+        <label>Description</label>
+        <textarea id="description" required
+        placeholder="Condition, features and details"></textarea>
 
-<label>Product photo</label>
-<input id="photo" type="file" accept="image/*">
-<p class="small">Choose an image smaller than 900 KB.</p>
+        <label>Your expected price (₹)</label>
+        <input id="price" type="number" min="1"
+        required placeholder="Enter expected price">
 
-<div class="actions">
-<button class="btn green">Add product</button>
-</div>
-</form>
+        <label>Category</label>
 
-<div class="section-head">
-<h2>My Product</h2>
-</div>
-<div id="sellerProducts"></div>
+        <select id="category">
+            <option>Electronics</option>
+            <option>Furniture</option>
+            <option>Books</option>
+            <option>Clothing</option>
+            <option>Vehicles</option>
+            <option>Home & Kitchen</option>
+            <option>Other</option>
+        </select>
+
+        <label>Product photo</label>
+        <input id="photo" type="file" accept="image/*">
+
+        <p class="small">
+            Choose an image smaller than 900 KB.
+        </p>
+
+        <div class="actions">
+            <button class="btn green">Add product</button>
+        </div>
+
+    </form>
+
+    <div class="section-head">
+        <h2>My Products</h2>
+    </div>
+
+    <div id="sellerProducts" class="message-grid"></div>
+
 </section>
-  
+
+<!-- BUYER SHOP PAGE -->
+
+<section id="buyPage" class="page">
+
+    <div class="section-head">
+        <h2>Available Products</h2>
+    </div>
+
+    <div class="form-card" style="max-width:100%;margin-bottom:20px">
+
+        <label>Search products</label>
+        <input id="search" type="text"
+        placeholder="Search by product name or description"
+        oninput="renderProducts()">
+
+        <label>Choose Category</label>
+
+        <select id="filter" onchange="renderProducts()">
+            <option value="">All Categories</option>
+            <option>Electronics</option>
+            <option>Furniture</option>
+            <option>Books</option>
+            <option>Clothing</option>
+            <option>Vehicles</option>
+            <option>Home & Kitchen</option>
+            <option>Other</option>
+        </select>
+
+    </div>
+
+    <div id="allProducts" class="grid"></div>
+
+</section>
+
+<!-- ADMIN DASHBOARD -->
+
 <section id="adminPage" class="page">
-<div class="section-head"><h2>Admin Dashboard</h2></div>
-<div class="grid" id="adminStats"></div>
 
-<div class="section-head"><h2>Seller Submissions</h2></div>
-<div id="adminSubmissions"></div>
+    <div class="section-head">
+        <h2>Admin Dashboard</h2>
+    </div>
 
-<div class="section-head"><h2>ReMarket Inventory</h2></div>
-<div id="adminInventory"></div>
+    <div class="grid" id="adminStats"></div>
 
-<div class="section-head"><h2>Completed Sales</h2></div>
-<div id="adminSales"></div>
+    <div class="section-head">
+        <h2>Seller Submissions</h2>
+    </div>
+
+    <div id="adminSubmissions" class="message-grid"></div>
+
+    <div class="section-head">
+        <h2>ReMarket Inventory</h2>
+    </div>
+
+    <div id="adminInventory" class="message-grid"></div>
+
+    <div class="section-head">
+        <h2>Completed Sales</h2>
+    </div>
+
+    <div id="adminSales" class="message-grid"></div>
+
 </section>
+
+<!-- MESSAGES PAGE -->
 
 <section id="messagesPage" class="page">
-<div class="section-head"><h2>Messages & Order Updates</h2></div>
-<div id="messageList"></div>
+
+    <div class="section-head">
+        <h2>Messages & Order Updates</h2>
+    </div>
+
+    <div id="messageList"></div>
+
 </section>
 
-<section id="termsPage" class="page">
-<div class="section-head"><h2>Terms & Conditions</h2></div>
+<!-- TERMS PAGE -->
 
-<div class="info-card">
-<h3>How ReMarket works</h3><br>
-<p>• Sellers submit used products and expected prices.</p><br>
-<p>• ReMarket reviews products and makes a purchase offer.</p><br>
-<p>• After accepting the offer and handing over the product, ReMarket owns it.</p><br>
-<p>• Buyers purchase products from ReMarket at the displayed resale price.</p><br>
-<p>• ReMarket is responsible for managing the product inventory.</p><br>
-<p class="small">This is an educational project. Data is stored in your browser. It does not process real payments or arrange real delivery.</p>
-</div>
+<section id="termsPage" class="page">
+
+    <div class="section-head">
+        <h2>Terms & Conditions</h2>
+    </div>
+
+    <div class="info-card">
+
+        <h3>How ReMarket works</h3>
+        <br>
+
+        <p>• Sellers submit used products and expected prices.</p>
+        <br>
+
+        <p>• ReMarket reviews products and makes a purchase offer.</p>
+        <br>
+
+        <p>• After accepting the offer and handing over the product, ReMarket owns it.</p>
+        <br>
+
+        <p>• Buyers purchase products from ReMarket at the displayed resale price.</p>
+        <br>
+
+        <p>• ReMarket is responsible for managing the product inventory.</p>
+        <br>
+
+        <p class="small">
+            This is an educational project. Data is stored in your browser.
+            It does not process real payments or arrange real delivery.
+        </p>
+
+    </div>
+
 </section>
 
 </main>
 </div>
 
 <footer>ReMarket © 2026 · Reselling Marketplace</footer>
+
 <div id="notice"></div>
 
 <script>
-const read=k=>JSON.parse(localStorage.getItem(k)||"[]");
-const save=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 
-let users=read("rmProUsers");
-let products=read("rmProProducts");
-let messages=read("rmProMessages");
+// LOCAL STORAGE
 
-let current=JSON.parse(sessionStorage.getItem("rmProCurrent")||"null");
-let loginMode=false;
+const read = k => JSON.parse(localStorage.getItem(k) || "[]");
 
-const ADMIN={
-name:"ReMarket Admin",
-email:"admin@remarket.com",
-password:"admin123",
-role:"admin"
+const save = (k,v) => localStorage.setItem(k,JSON.stringify(v));
+
+let users = read("rmProUsers");
+let products = read("rmProProducts");
+let messages = read("rmProMessages");
+
+let current = JSON.parse(sessionStorage.getItem("rmProCurrent") || "null");
+
+let loginMode = false;
+
+const ADMIN = {
+    name:"ReMarket Admin",
+    email:"admin@remarket.com",
+    password:"admin123",
+    role:"admin"
 };
 
+// NOTIFICATION
+
 function notify(msg){
-let n=document.getElementById("notice");
-n.textContent=msg;
-n.style.display="block";
-setTimeout(()=>n.style.display="none",3000);
+
+    let n = document.getElementById("notice");
+
+    n.textContent = msg;
+    n.style.display = "block";
+
+    setTimeout(() => n.style.display = "none",3000);
 }
 
+// AUTHENTICATION
+
 function showAuth(){
-document.getElementById("authView").style.display="grid";
-document.getElementById("appView").style.display="none";
+
+    document.getElementById("authView").style.display = "grid";
+    document.getElementById("appView").style.display = "none";
 }
 
 function switchAuth(){
-loginMode=!loginMode;
 
-document.getElementById("authHeading").textContent=loginMode?"Welcome back":"Create account";
-document.getElementById("authSubmit").textContent=loginMode?"Login":"Register";
-document.getElementById("nameWrap").style.display=loginMode?"none":"block";
-document.getElementById("roleWrap").style.display=loginMode?"none":"block";
-document.getElementById("name").required=!loginMode;
+    loginMode = !loginMode;
 
-document.getElementById("authSwitch").innerHTML=loginMode?
-'New here? <button class="link" onclick="switchAuth()">Create account</button>':
-'Already have an account? <button class="link" onclick="switchAuth()">Login</button>';
+    document.getElementById("authHeading").textContent =
+    loginMode ? "Welcome back" : "Create account";
+
+    document.getElementById("authSubmit").textContent =
+    loginMode ? "Login" : "Register";
+
+    document.getElementById("nameWrap").style.display =
+    loginMode ? "none" : "block";
+
+    document.getElementById("roleWrap").style.display =
+    loginMode ? "none" : "block";
+
+    document.getElementById("name").required = !loginMode;
+
+    document.getElementById("authSwitch").innerHTML = loginMode
+    ? 'New here? <button class="link" onclick="switchAuth()">Create account</button>'
+    : 'Already have an account? <button class="link" onclick="switchAuth()">Login</button>';
 }
 
-document.getElementById("authForm").onsubmit=e=>{
-e.preventDefault();
+document.getElementById("authForm").onsubmit = e => {
 
-let email=document.getElementById("email").value.trim().toLowerCase();
-let password=document.getElementById("password").value;
+    e.preventDefault();
 
-if(loginMode){
+    let email = document.getElementById("email").value.trim().toLowerCase();
+    let password = document.getElementById("password").value;
 
-if(email===ADMIN.email && password===ADMIN.password){
-current=ADMIN;
-}else{
-current=users.find(u=>u.email===email && u.password===password);
+    if(loginMode){
 
-if(!current){
-notify("Incorrect email or password.");
-return;
-}
-}
+        if(email === ADMIN.email && password === ADMIN.password){
 
-}else{
+            current = ADMIN;
 
-if(users.some(u=>u.email===email)||email===ADMIN.email){
-notify("Account already exists. Please login.");
-return;
-}
+        }else{
 
-current={
-name:document.getElementById("name").value.trim(),
-email,
-password,
-role:document.getElementById("role").value
+            current = users.find(u =>
+                u.email === email && u.password === password
+            );
+
+            if(!current){
+                notify("Incorrect email or password.");
+                return;
+            }
+        }
+
+    }else{
+
+        if(users.some(u => u.email === email) || email === ADMIN.email){
+
+            notify("Account already exists. Please login.");
+            return;
+        }
+
+        current = {
+
+            name:document.getElementById("name").value.trim(),
+            email,
+            password,
+            role:document.getElementById("role").value
+
+        };
+
+        users.push(current);
+        save("rmProUsers",users);
+    }
+
+    sessionStorage.setItem("rmProCurrent",JSON.stringify(current));
+
+    openApp();
 };
 
-users.push(current);
-save("rmProUsers",users);
-}
-
-sessionStorage.setItem("rmProCurrent",JSON.stringify(current));
-openApp();
-};
+// OPEN APPLICATION
 
 function openApp(){
-document.getElementById("authView").style.display="none";
-document.getElementById("appView").style.display="flex";
 
-document.getElementById("userLabel").textContent=current.name+" ("+current.role+")";
+    document.getElementById("authView").style.display = "none";
+    document.getElementById("appView").style.display = "flex";
 
-buildNav();
-renderHome();
+    document.getElementById("userLabel").textContent =
+    current.name + " (" + current.role + ")";
 
-if(current.role==="admin")renderAdmin();
-if(current.role==="seller")renderSeller();
+    buildNav();
 
-navigate("homePage");
+    renderHome();
+
+    if(current.role === "admin") renderAdmin();
+
+    if(current.role === "seller") renderSeller();
+
+    navigate("homePage");
 }
+
+// NAVIGATION
 
 function buildNav(){
-let links=[];
 
-if(current.role==="admin"){
-links=[
-["homePage","⌂ Home"],
-["adminPage","Admin Dashboard"],
-["messagesPage","Messages"]
-];
-}
-else if(current.role==="seller"){
-links=[
-["homePage","⌂ Home"],
-["sellerPage","Submit Product"],
-["messagesPage","Messages"]
-];
-}
-else{
-links=[
-["homePage","⌂ Home"],
-["buyPage","Shop Products"],
-["messagesPage","Messages"]
-];
-}
+    let links = [];
 
-document.getElementById("navItems").innerHTML=
-links.map(x=>`
-<button class="nav" data-page="${x[0]}" onclick="navigate('${x[0]}')">
-${x[1]}
-</button>`).join("");
+    if(current.role === "admin"){
+
+        links = [
+            ["homePage","⌂ Home"],
+            ["adminPage","Admin Dashboard"],
+            ["messagesPage","Messages"]
+        ];
+
+    }else if(current.role === "seller"){
+
+        links = [
+            ["homePage","⌂ Home"],
+            ["sellerPage","Submit Product"],
+            ["messagesPage","Messages"]
+        ];
+
+    }else{
+
+        links = [
+            ["homePage","⌂ Home"],
+            ["buyPage","Shop Products"],
+            ["messagesPage","Messages"]
+        ];
+    }
+
+    document.getElementById("navItems").innerHTML =
+
+    links.map(x => `
+        <button class="nav" data-page="${x[0]}"
+        onclick="navigate('${x[0]}')">
+            ${x[1]}
+        </button>
+    `).join("");
 }
 
 function logout(){
-current=null;
-sessionStorage.removeItem("rmProCurrent");
-document.getElementById("userLabel").textContent="";
-closeMenu();
-showAuth();
+
+    current = null;
+
+    sessionStorage.removeItem("rmProCurrent");
+
+    document.getElementById("userLabel").textContent = "";
+
+    closeMenu();
+
+    showAuth();
 }
 
 function toggleMenu(){
-document.getElementById("sidebar").classList.toggle("open");
+
+    document.getElementById("sidebar").classList.toggle("open");
 }
 
 function closeMenu(){
-document.getElementById("sidebar").classList.remove("open");
+
+    document.getElementById("sidebar").classList.remove("open");
 }
 
 function navigate(id){
-document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-document.getElementById(id).classList.add("active");
 
-document.querySelectorAll(".nav[data-page]").forEach(b=>{
-b.classList.toggle("active",b.dataset.page===id);
-});
+    let page = document.getElementById(id);
 
-closeMenu();
+    if(!page){
+        notify("Page not found.");
+        return;
+    }
 
-if(id==="buyPage")renderProducts();
-if(id==="messagesPage")renderMessages();
-if(id==="homePage")renderHome();
-if(id==="sellerPage")renderSeller();
-if(id==="adminPage")renderAdmin();
+    document.querySelectorAll(".page").forEach(p =>
+        p.classList.remove("active")
+    );
+
+    page.classList.add("active");
+
+    document.querySelectorAll(".nav[data-page]").forEach(b => {
+
+        b.classList.toggle("active",b.dataset.page === id);
+
+    });
+
+    closeMenu();
+
+    if(id === "buyPage") renderProducts();
+
+    if(id === "messagesPage") renderMessages();
+
+    if(id === "homePage") renderHome();
+
+    if(id === "sellerPage") renderSeller();
+
+    if(id === "adminPage") renderAdmin();
 }
+
+// ESCAPE HTML
 
 function esc(s){
-return String(s??"").replace(/[&<>"']/g,c=>({
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#39;"
-}[c]));
+
+    return String(s ?? "").replace(/[&<>"']/g,c => ({
+
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+
+    }[c]));
 }
+
+// AVAILABLE PRODUCTS
 
 function availableProducts(){
-return products.filter(p=>p.status==="listed");
+
+    return products.filter(p => p.status === "listed");
 }
+
+// BUYER PRODUCT CARD
 
 function productCard(p){
-return `
-<article class="product">
-<img src="${p.photo||'https://placehold.co/400x260/eaf3ed/668b70?text=ReMarket'}" alt="${esc(p.name)}">
-<h3>${esc(p.name)}</h3>
-<p class="desc">${esc(p.description)}</p>
-<p class="meta">${esc(p.category)} · Sold by ReMarket</p>
-<p class="price">₹${Number(p.resalePrice).toLocaleString("en-IN")}</p>
 
-<div class="product-actions">
-<button class="btn green" onclick="buyNow(${p.id})">Buy Now</button>
-<button class="btn soft" onclick="messageReMarket(${p.id})">Ask about product</button>
-</div>
-</article>
-`;
+    return `
+
+    <article class="product">
+
+        <img src="${p.photo || 'https://placehold.co/400x260/eaf3ed/668b70?text=ReMarket'}"
+        alt="${esc(p.name)}">
+
+        <h3>${esc(p.name)}</h3>
+
+        <p class="desc">${esc(p.description)}</p>
+
+        <p class="meta">
+            ${esc(p.category)} · Sold by ReMarket
+        </p>
+
+        <p class="price">
+            ₹${Number(p.resalePrice).toLocaleString("en-IN")}
+        </p>
+
+        <div class="product-actions">
+
+            <button class="btn green"
+            onclick="buyNow(${p.id})">
+                Buy Now
+            </button>
+
+            <button class="btn soft"
+            onclick="messageReMarket(${p.id})">
+                Ask about product
+            </button>
+
+        </div>
+
+    </article>
+
+    `;
 }
+
+// BUYER SHOP
 
 function renderProducts(){
-if(current.role!=="buyer")return;
 
-let q=(document.getElementById("search")?.value||"").toLowerCase();
-let cat=document.getElementById("filter")?.value||"";
+    if(current.role !== "buyer") return;
 
-let list=availableProducts().filter(p=>
-(p.name+" "+p.description).toLowerCase().includes(q)&&
-(!cat||p.category===cat)
-);
+    let q = (document.getElementById("search")?.value || "").toLowerCase();
 
-document.getElementById("allProducts").innerHTML=
-list.map(productCard).join("")||
-'<div class="empty">No products available.</div>';
+    let cat = document.getElementById("filter")?.value || "";
+
+    let list = availableProducts().filter(p =>
+
+        (p.name + " " + p.description).toLowerCase().includes(q) &&
+        (!cat || p.category === cat)
+
+    );
+
+    document.getElementById("allProducts").innerHTML =
+
+    list.map(productCard).join("") ||
+
+    '<div class="empty">No products available.</div>';
 }
+
+// HOME DASHBOARD
 
 function renderHome(){
-let title=document.getElementById("welcomeTitle");
-let desc=document.getElementById("welcomeText");
-let actions=document.getElementById("homeActions");
-let section=document.getElementById("homeSectionTitle");
 
-if(current.role==="seller"){
+    let title = document.getElementById("welcomeTitle");
 
-title.textContent="Sell your used products";
-desc.textContent="Submit your product and receive a purchase offer from ReMarket.";
-actions.innerHTML='<button class="btn green" onclick="navigate(\'sellerPage\')">Submit Product</button>';
-section.textContent="Your latest submissions";
+    let desc = document.getElementById("welcomeText");
 
-let mine=products.filter(p=>p.seller===current.email).slice(0,4);
+    let actions = document.getElementById("homeActions");
 
-document.getElementById("recentProducts").innerHTML=
-mine.map(sellerCard).join("")||
-'<div class="empty">No submissions yet.</div>';
+    let section = document.getElementById("homeSectionTitle");
 
-}else if(current.role==="admin"){
+    let viewAll = document.getElementById("viewAllBtn");
 
-title.textContent="Welcome to ReMarket Admin";
-desc.textContent="Manage purchases, inventory and sales.";
-actions.innerHTML='<button class="btn green" onclick="navigate(\'adminPage\')">Admin Dashboard</button>';
-section.textContent="Recently added inventory";
+    if(current.role === "seller"){
 
-document.getElementById("recentProducts").innerHTML=
-availableProducts().slice(0,4).map(productCard).join("")||
-'<div class="empty">No products listed.</div>';
+        title.textContent = "Sell your used products";
 
-}else{
+        desc.textContent =
+        "Submit your product and receive a purchase offer from ReMarket.";
 
-title.textContent="Find it. Love it. Reuse it.";
-desc.textContent="Shop quality pre-loved products from ReMarket.";
-actions.innerHTML='<button class="btn green" onclick="navigate(\'buyPage\')">Browse Products</button>';
-section.textContent="Recently available";
+        actions.innerHTML =
+        '<button class="btn green" onclick="navigate(\'sellerPage\')">Submit Product</button>';
 
-document.getElementById("recentProducts").innerHTML=
-availableProducts().slice(0,4).map(productCard).join("")||
-'<div class="empty">No products available yet.</div>';
+        section.textContent = "Your latest submissions";
+
+        viewAll.style.display = "none";
+
+        let mine = products.filter(p => p.seller === current.email).slice(0,4);
+
+        document.getElementById("recentProducts").innerHTML =
+
+        mine.map(sellerCard).join("") ||
+
+        '<div class="empty">No submissions yet.</div>';
+
+    }else if(current.role === "admin"){
+
+        title.textContent = "Welcome to ReMarket Admin";
+
+        desc.textContent = "Manage purchases, inventory and sales.";
+
+        actions.innerHTML =
+        '<button class="btn green" onclick="navigate(\'adminPage\')">Admin Dashboard</button>';
+
+        section.textContent = "Recently added inventory";
+
+        viewAll.style.display = "none";
+
+        document.getElementById("recentProducts").innerHTML =
+
+        availableProducts().slice(0,4).map(productCard).join("") ||
+
+        '<div class="empty">No products listed.</div>';
+
+    }else{
+
+        title.textContent = "Find it. Love it. Reuse it.";
+
+        desc.textContent = "Shop quality pre-loved products from ReMarket.";
+
+        actions.innerHTML =
+        '<button class="btn green" onclick="navigate(\'buyPage\')">Browse Products</button>';
+
+        section.textContent = "Recently available";
+
+        viewAll.style.display = "inline-block";
+
+        document.getElementById("recentProducts").innerHTML =
+
+        availableProducts().slice(0,4).map(productCard).join("") ||
+
+        '<div class="empty">No products available yet.</div>';
+    }
 }
-}
+
+// SELLER PRODUCT CARD
 
 function sellerCard(p){
 
-let statusText={
-submitted:"Waiting for review",
-offer_sent:"Offer sent",
-accepted:"Offer accepted - Awaiting handover",
-inventory:"Received by ReMarket",
-listed:"Listed for buyers",
-sold:"Sold to buyer",
-rejected:"Not accepted"
-}[p.status]||p.status;
+    let statusText = {
 
-return `
-<div class="message">
+        submitted:"Waiting for review",
+        offer_sent:"Offer sent",
+        accepted:"Offer accepted - Awaiting handover",
+        inventory:"Received by ReMarket",
+        listed:"Listed for buyers",
+        sold:"Sold to buyer",
+        rejected:"Not accepted"
 
-<img class="submission-img"
-src="${p.photo||'https://placehold.co/400x260/eaf3ed/668b70?text=No+Image'}"
-alt="${esc(p.name)}">
+    }[p.status] || p.status;
 
-<b>${esc(p.name)}</b>
-<p>${esc(p.description)}</p>
+    return `
 
-<p class="small">
-Expected price: ₹${Number(p.expectedPrice).toLocaleString("en-IN")}
-</p>
+    <div class="message">
 
-<p>Status: <span class="badge">${statusText}</span></p>
+        <img class="submission-img"
+        src="${p.photo || 'https://placehold.co/400x260/eaf3ed/668b70?text=No+Image'}"
+        alt="${esc(p.name)}">
 
-${p.status==="offer_sent"?`
-<p>ReMarket offer:
-<b>₹${Number(p.purchaseOffer).toLocaleString("en-IN")}</b>
-</p>
-<button class="btn green" onclick="acceptOffer(${p.id})">Accept Offer</button>
-<button class="btn outline" onclick="rejectOffer(${p.id})">Decline</button>
-`:""}
+        <b>${esc(p.name)}</b>
 
-${["listed","sold"].includes(p.status)?`
-<p class="small">
-Resale price: ₹${Number(p.resalePrice).toLocaleString("en-IN")}
-</p>
-`:""}
+        <p>${esc(p.description)}</p>
 
-</div>
-`;
+        <p class="small">
+            Expected price:
+            ₹${Number(p.expectedPrice).toLocaleString("en-IN")}
+        </p>
+
+        <p>
+            Status:
+            <span class="badge">${statusText}</span>
+        </p>
+
+        ${p.status === "offer_sent" ? `
+
+            <p>
+                ReMarket offer:
+                <b>₹${Number(p.purchaseOffer).toLocaleString("en-IN")}</b>
+            </p>
+
+            <button class="btn green"
+            onclick="acceptOffer(${p.id})">
+                Accept Offer
+            </button>
+
+            <button class="btn outline"
+            onclick="rejectOffer(${p.id})">
+                Decline
+            </button>
+
+        ` : ""}
+
+        ${["listed","sold"].includes(p.status) ? `
+
+            <p class="small">
+                Resale price:
+                ₹${Number(p.resalePrice).toLocaleString("en-IN")}
+            </p>
+
+        ` : ""}
+
+    </div>
+
+    `;
 }
+
+// SELLER DASHBOARD
 
 function renderSeller(){
-if(current.role!=="seller")return;
 
-let mine=products.filter(p=>p.seller===current.email);
+    if(current.role !== "seller") return;
 
-document.getElementById("sellerProducts").innerHTML=
-mine.map(sellerCard).join("")||
-'<div class="empty">No submissions yet.</div>';
+    let mine = products.filter(p => p.seller === current.email);
+
+    document.getElementById("sellerProducts").innerHTML =
+
+    mine.map(sellerCard).join("") ||
+
+    '<div class="empty">No submissions yet.</div>';
 }
 
-document.getElementById("productForm").onsubmit=async e=>{
-e.preventDefault();
+// SELLER PRODUCT SUBMISSION
 
-let file=document.getElementById("photo").files[0];
-let photo="";
+document.getElementById("productForm").onsubmit = async e => {
 
-if(file){
+    e.preventDefault();
 
-if(file.size>900000){
-notify("Choose an image smaller than 900 KB.");
-return;
-}
+    let file = document.getElementById("photo").files[0];
 
-photo=await new Promise(resolve=>{
-let r=new FileReader();
-r.onload=()=>resolve(r.result);
-r.readAsDataURL(file);
-});
-}
+    let photo = "";
 
-products.unshift({
-id:Date.now(),
-seller:current.email,
-sellerName:current.name,
-name:document.getElementById("pname").value.trim(),
-description:document.getElementById("description").value.trim(),
-expectedPrice:Number(document.getElementById("price").value),
-purchaseOffer:0,
-resalePrice:0,
-category:document.getElementById("category").value,
-photo,
-status:"submitted",
-buyer:""
-});
+    if(file){
 
-try{
-save("rmProProducts",products);
-}catch(err){
-products=read("rmProProducts");
-notify("Storage is full. Try a smaller image.");
-return;
-}
+        if(file.size > 900000){
 
-e.target.reset();
-notify("Product submitted to ReMarket.");
-renderSeller();
-navigate("sellerPage");
+            notify("Choose an image smaller than 900 KB.");
+
+            return;
+        }
+
+        photo = await new Promise(resolve => {
+
+            let r = new FileReader();
+
+            r.onload = () => resolve(r.result);
+
+            r.readAsDataURL(file);
+
+        });
+    }
+
+    products.unshift({
+
+        id:Date.now(),
+
+        seller:current.email,
+
+        sellerName:current.name,
+
+        name:document.getElementById("pname").value.trim(),
+
+        description:document.getElementById("description").value.trim(),
+
+        expectedPrice:Number(document.getElementById("price").value),
+
+        purchaseOffer:0,
+
+        resalePrice:0,
+
+        category:document.getElementById("category").value,
+
+        photo,
+
+        status:"submitted",
+
+        buyer:""
+
+    });
+
+    try{
+
+        save("rmProProducts",products);
+
+    }catch(err){
+
+        products = read("rmProProducts");
+
+        notify("Storage is full. Try a smaller image.");
+
+        return;
+    }
+
+    e.target.reset();
+
+    notify("Product submitted to ReMarket.");
+
+    renderSeller();
+
+    renderHome();
+
+    navigate("sellerPage");
 };
 
+// ADMIN DASHBOARD
+
 function renderAdmin(){
-if(current.role!=="admin")return;
 
-let pending=products.filter(p=>p.status==="submitted").length;
-let inventory=products.filter(p=>["inventory","listed"].includes(p.status)).length;
-let sales=products.filter(p=>p.status==="sold").length;
+    if(current.role !== "admin") return;
 
-let margin=products
-.filter(p=>p.status==="sold")
-.reduce((a,p)=>a+(Number(p.resalePrice)-Number(p.purchaseOffer)),0);
+    let pending = products.filter(p => p.status === "submitted").length;
 
-document.getElementById("adminStats").innerHTML=`
-<div class="info-card">
-<p class="small">Seller Submissions</p>
-<h2>${pending}</h2>
-</div>
-<div class="info-card">
-<p class="small">Inventory</p>
-<h2>${inventory}</h2>
-</div>
-<div class="info-card">
-<p class="small">Completed Sales</p>
-<h2>${sales}</h2>
-</div>
-<div class="info-card">
-<p class="small">Gross Margin</p>
-<h2>₹${margin.toLocaleString("en-IN")}</h2>
-</div>
-`;
+    let inventory = products.filter(p =>
+        ["inventory","listed"].includes(p.status)
+    ).length;
 
-let submissions=products.filter(p=>["submitted","offer_sent","accepted"].includes(p.status));
+    let sales = products.filter(p => p.status === "sold").length;
 
-document.getElementById("adminSubmissions").innerHTML=
-submissions.map(p=>`
-<div class="message">
+    let margin = products
+    .filter(p => p.status === "sold")
+    .reduce((a,p) =>
+        a + (Number(p.resalePrice) - Number(p.purchaseOffer)),0
+    );
 
-<img class="submission-img"
-src="${p.photo||'https://placehold.co/400x260/eaf3ed/668b70?text=No+Image'}"
-alt="${esc(p.name)}">
+    document.getElementById("adminStats").innerHTML = `
 
-<b>${esc(p.name)}</b>
-<p>${esc(p.description)}</p>
-<p class="small">Seller: ${esc(p.sellerName)}</p>
+        <div class="info-card">
+            <p class="small">Seller Submissions</p>
+            <h2>${pending}</h2>
+        </div>
 
-<p>Expected price:
-₹${Number(p.expectedPrice).toLocaleString("en-IN")}
-</p>
+        <div class="info-card">
+            <p class="small">Inventory</p>
+            <h2>${inventory}</h2>
+        </div>
 
-<p>Status: <span class="badge">${esc(p.status)}</span></p>
+        <div class="info-card">
+            <p class="small">Completed Sales</p>
+            <h2>${sales}</h2>
+        </div>
 
-${p.status==="submitted"?`
-<label>Purchase offer (₹)</label>
-<input type="number" min="1" id="offer-${p.id}" placeholder="Enter purchase price">
+        <div class="info-card">
+            <p class="small">Gross Margin</p>
+            <h2>₹${margin.toLocaleString("en-IN")}</h2>
+        </div>
 
-<button class="btn green" onclick="sendOffer(${p.id})">Send Offer</button>
-<button class="btn outline" onclick="rejectSubmission(${p.id})">Reject</button>
-`:""}
+    `;
 
-${p.status==="accepted"?`
-<p>Seller accepted ₹${Number(p.purchaseOffer).toLocaleString("en-IN")}</p>
-<button class="btn green" onclick="confirmHandover(${p.id})">Confirm Product Received</button>
-`:""}
+    // SELLER SUBMISSIONS
 
-</div>
-`).join("")||
-'<div class="empty">No pending submissions.</div>';
+    let submissions = products.filter(p =>
+        ["submitted","offer_sent","accepted"].includes(p.status)
+    );
 
-let stock=products.filter(p=>["inventory","listed"].includes(p.status));
+    document.getElementById("adminSubmissions").innerHTML =
 
-document.getElementById("adminInventory").innerHTML=
-stock.map(p=>`
-<div class="message">
+    submissions.map(p => `
 
-<img class="submission-img"
-src="${p.photo||'https://placehold.co/400x260/eaf3ed/668b70?text=No+Image'}"
-alt="${esc(p.name)}">
+        <div class="message">
 
-<b>${esc(p.name)}</b>
+            <img class="submission-img"
+            src="${p.photo || 'https://placehold.co/400x260/eaf3ed/668b70?text=No+Image'}"
+            alt="${esc(p.name)}">
 
-<p>Purchase price: ₹${Number(p.purchaseOffer).toLocaleString("en-IN")}</p>
-<p>Status: ${esc(p.status)}</p>
+            <b>${esc(p.name)}</b>
 
-${p.status==="inventory"?`
-<label>Resale price to buyer (₹)</label>
-<input type="number" min="1" id="resale-${p.id}" placeholder="Enter selling price">
-<button class="btn green" onclick="listProduct(${p.id})">List for Buyers</button>
-`:`<p>Buyer price: ₹${Number(p.resalePrice).toLocaleString("en-IN")}</p>
-<button class="btn outline" onclick="unlistProduct(${p.id})">Remove from Shop</button>`}
+            <p>${esc(p.description)}</p>
 
-</div>
-`).join("")||
-'<div class="empty">No inventory available.</div>';
+            <p class="small">
+                Seller: ${esc(p.sellerName)}
+            </p>
 
-let sold=products.filter(p=>p.status==="sold");
+            <p>
+                Expected price:
+                ₹${Number(p.expectedPrice).toLocaleString("en-IN")}
+            </p>
 
-document.getElementById("adminSales").innerHTML=
-sold.map(p=>`
-<div class="message">
-<b>${esc(p.name)}</b>
-<p>Purchase price: ₹${Number(p.purchaseOffer).toLocaleString("en-IN")}</p>
-<p>Sale price: ₹${Number(p.resalePrice).toLocaleString("en-IN")}</p>
-<p><b>Gross margin: ₹${(Number(p.resalePrice)-Number(p.purchaseOffer)).toLocaleString("en-IN")}</b></p>
-<p class="small">Buyer: ${esc(p.buyer)}</p>
-</div>
-`).join("")||
-'<div class="empty">No completed sales yet.</div>';
+            <p>
+                Status:
+                <span class="badge">${esc(p.status)}</span>
+            </p>
+
+            ${p.status === "submitted" ? `
+
+                <label>Purchase offer (₹)</label>
+
+                <input type="number" min="1"
+                id="offer-${p.id}"
+                placeholder="Enter purchase price">
+
+                <button class="btn green"
+                onclick="sendOffer(${p.id})">
+                    Send Offer
+                </button>
+
+                <button class="btn outline"
+                onclick="rejectSubmission(${p.id})">
+                    Reject
+                </button>
+
+            ` : ""}
+
+            ${p.status === "accepted" ? `
+
+                <p>
+                    Seller accepted:
+                    ₹${Number(p.purchaseOffer).toLocaleString("en-IN")}
+                </p>
+
+                <button class="btn green"
+                onclick="confirmHandover(${p.id})">
+                    Confirm Product Received
+                </button>
+
+            ` : ""}
+
+        </div>
+
+    `).join("") ||
+
+    '<div class="empty">No pending submissions.</div>';
+
+    // REMARKET INVENTORY
+
+    let stock = products.filter(p =>
+        ["inventory","listed"].includes(p.status)
+    );
+
+    document.getElementById("adminInventory").innerHTML =
+
+    stock.map(p => `
+
+        <div class="message">
+
+            <img class="submission-img"
+            src="${p.photo || 'https://placehold.co/400x260/eaf3ed/668b70?text=No+Image'}"
+            alt="${esc(p.name)}">
+
+            <b>${esc(p.name)}</b>
+
+            <p>
+                Purchase price:
+                ₹${Number(p.purchaseOffer).toLocaleString("en-IN")}
+            </p>
+
+            <p>Status: ${esc(p.status)}</p>
+
+            ${p.status === "inventory" ? `
+
+                <label>Resale price to buyer (₹)</label>
+
+                <input type="number" min="1"
+                id="resale-${p.id}"
+                placeholder="Enter selling price">
+
+                <button class="btn green"
+                onclick="listProduct(${p.id})">
+                    List for Buyers
+                </button>
+
+            ` : `
+
+                <p>
+                    Buyer price:
+                    ₹${Number(p.resalePrice).toLocaleString("en-IN")}
+                </p>
+
+                <button class="btn outline"
+                onclick="unlistProduct(${p.id})">
+                    Remove from Shop
+                </button>
+
+            `}
+
+        </div>
+
+    `).join("") ||
+
+    '<div class="empty">No inventory available.</div>';
+
+    // COMPLETED SALES
+
+    let sold = products.filter(p => p.status === "sold");
+
+    document.getElementById("adminSales").innerHTML =
+
+    sold.map(p => `
+
+        <div class="message">
+
+            <b>${esc(p.name)}</b>
+
+            <p>
+                Purchase price:
+                ₹${Number(p.purchaseOffer).toLocaleString("en-IN")}
+            </p>
+
+            <p>
+                Sale price:
+                ₹${Number(p.resalePrice).toLocaleString("en-IN")}
+            </p>
+
+            <p>
+                <b>
+                    Gross margin:
+                    ₹${(Number(p.resalePrice)-Number(p.purchaseOffer)).toLocaleString("en-IN")}
+                </b>
+            </p>
+
+            <p class="small">
+                Buyer: ${esc(p.buyer)}
+            </p>
+
+        </div>
+
+    `).join("") ||
+
+    '<div class="empty">No completed sales yet.</div>';
 }
+
+// ADMIN SEND OFFER
 
 function sendOffer(id){
-let p=products.find(x=>x.id===id);
-let v=Number(document.getElementById("offer-"+id).value);
 
-if(!p||!v||v<1){
-notify("Enter a valid purchase offer.");
-return;
+    let p = products.find(x => x.id === id);
+
+    let v = Number(document.getElementById("offer-" + id).value);
+
+    if(!p || !v || v < 1){
+
+        notify("Enter a valid purchase offer.");
+
+        return;
+    }
+
+    p.purchaseOffer = v;
+
+    p.status = "offer_sent";
+
+    save("rmProProducts",products);
+
+    notify("Purchase offer sent.");
+
+    renderAdmin();
 }
 
-p.purchaseOffer=v;
-p.status="offer_sent";
-save("rmProProducts",products);
-notify("Purchase offer sent.");
-renderAdmin();
-}
+// ADMIN REJECT SUBMISSION
 
 function rejectSubmission(id){
-let p=products.find(x=>x.id===id);
-if(!p)return;
 
-p.status="rejected";
-save("rmProProducts",products);
-notify("Product rejected.");
-renderAdmin();
+    let p = products.find(x => x.id === id);
+
+    if(!p) return;
+
+    p.status = "rejected";
+
+    save("rmProProducts",products);
+
+    notify("Product rejected.");
+
+    renderAdmin();
 }
+
+// SELLER ACCEPT OFFER
 
 function acceptOffer(id){
-let p=products.find(x=>x.id===id);
 
-if(!p||p.seller!==current.email||p.status!=="offer_sent")return;
+    let p = products.find(x => x.id === id);
 
-p.status="accepted";
-save("rmProProducts",products);
-notify("Offer accepted. Arrange product handover.");
-renderSeller();
+    if(!p || p.seller !== current.email || p.status !== "offer_sent") return;
+
+    p.status = "accepted";
+
+    save("rmProProducts",products);
+
+    notify("Offer accepted. Arrange product handover.");
+
+    renderSeller();
 }
+
+// SELLER DECLINE OFFER
 
 function rejectOffer(id){
-let p=products.find(x=>x.id===id);
-if(!p||p.seller!==current.email)return;
 
-p.status="rejected";
-save("rmProProducts",products);
-notify("Offer declined.");
-renderSeller();
+    let p = products.find(x => x.id === id);
+
+    if(!p || p.seller !== current.email) return;
+
+    p.status = "rejected";
+
+    save("rmProProducts",products);
+
+    notify("Offer declined.");
+
+    renderSeller();
 }
+
+// ADMIN CONFIRM HANDOVER
 
 function confirmHandover(id){
-let p=products.find(x=>x.id===id);
-if(!p||p.status!=="accepted")return;
 
-p.status="inventory";
-save("rmProProducts",products);
-notify("Product added to ReMarket inventory.");
-renderAdmin();
+    let p = products.find(x => x.id === id);
+
+    if(!p || p.status !== "accepted") return;
+
+    p.status = "inventory";
+
+    save("rmProProducts",products);
+
+    notify("Product added to ReMarket inventory.");
+
+    renderAdmin();
 }
+
+// ADMIN LIST PRODUCT
 
 function listProduct(id){
-let p=products.find(x=>x.id===id);
-let v=Number(document.getElementById("resale-"+id).value);
 
-if(!p||!v||v<=0){
-notify("Enter a valid resale price.");
-return;
+    let p = products.find(x => x.id === id);
+
+    let v = Number(document.getElementById("resale-" + id).value);
+
+    if(!p || !v || v <= 0){
+
+        notify("Enter a valid resale price.");
+
+        return;
+    }
+
+    if(v <= p.purchaseOffer){
+
+        if(!confirm("Resale price is not higher than purchase price. Continue?")) return;
+    }
+
+    p.resalePrice = v;
+
+    p.status = "listed";
+
+    save("rmProProducts",products);
+
+    notify("Product listed for buyers.");
+
+    renderAdmin();
+
+    renderHome();
 }
 
-if(v<=p.purchaseOffer){
-if(!confirm("Resale price is not higher than purchase price. Continue?"))return;
-}
-
-p.resalePrice=v;
-p.status="listed";
-save("rmProProducts",products);
-notify("Product listed for buyers.");
-renderAdmin();
-}
+// ADMIN REMOVE PRODUCT FROM SHOP
 
 function unlistProduct(id){
-let p=products.find(x=>x.id===id);
-if(!p||p.status!=="listed")return;
 
-p.status="inventory";
-save("rmProProducts",products);
-renderAdmin();
-notify("Product removed from shop.");
+    let p = products.find(x => x.id === id);
+
+    if(!p || p.status !== "listed") return;
+
+    p.status = "inventory";
+
+    save("rmProProducts",products);
+
+    renderAdmin();
+
+    renderHome();
+
+    notify("Product removed from shop.");
 }
+
+// BUYER PURCHASE PRODUCT
 
 function buyNow(id){
-let p=products.find(x=>x.id===id);
 
-if(!p||p.status!=="listed"){
-notify("Product is no longer available.");
-return;
-}
+    let p = products.find(x => x.id === id);
 
-if(!confirm(
-`Buy "${p.name}" from ReMarket for ₹${Number(p.resalePrice).toLocaleString("en-IN")}?
+    if(!p || p.status !== "listed"){
+
+        notify("Product is no longer available.");
+
+        return;
+    }
+
+    if(!confirm(
+
+        `Buy "${p.name}" from ReMarket for ₹${Number(p.resalePrice).toLocaleString("en-IN")}?
 This demo records the order only. No real payment is processed.`
-))return;
 
-p.status="sold";
-p.buyer=current.email;
-p.soldAt=new Date().toLocaleString();
+    )) return;
 
-save("rmProProducts",products);
-notify("Order placed successfully!");
-renderProducts();
-renderHome();
+    p.status = "sold";
+
+    p.buyer = current.email;
+
+    p.soldAt = new Date().toLocaleString();
+
+    save("rmProProducts",products);
+
+    notify("Order placed successfully!");
+
+    renderProducts();
+
+    renderHome();
 }
+
+// MESSAGES
 
 function addMessage(p,body){
-messages.unshift({
-id:Date.now(),
-productId:p.id,
-productName:p.name,
-from:current.email,
-fromName:current.name,
-to:ADMIN.email,
-toName:"ReMarket",
-body,
-date:new Date().toLocaleString()
-});
 
-save("rmProMessages",messages);
+    messages.unshift({
+
+        id:Date.now(),
+
+        productId:p.id,
+
+        productName:p.name,
+
+        from:current.email,
+
+        fromName:current.name,
+
+        to:ADMIN.email,
+
+        toName:"ReMarket",
+
+        body,
+
+        date:new Date().toLocaleString()
+
+    });
+
+    save("rmProMessages",messages);
 }
+
+// MESSAGE REMARKET
 
 function messageReMarket(id){
-let p=products.find(x=>x.id===id);
-let body=prompt("Enter your question:");
 
-if(!p||!body||!body.trim())return;
+    let p = products.find(x => x.id === id);
 
-addMessage(p,body.trim());
-notify("Message sent to ReMarket.");
+    let body = prompt("Enter your question:");
+
+    if(!p || !body || !body.trim()) return;
+
+    addMessage(p,body.trim());
+
+    notify("Message sent to ReMarket.");
 }
+
+// DISPLAY MESSAGES
 
 function renderMessages(){
-let mine=messages.filter(m=>m.from===current.email||m.to===current.email);
 
-document.getElementById("messageList").innerHTML=
-mine.map(m=>`
-<div class="message">
-<b>${esc(m.productName)}</b>
-<p>${esc(m.fromName)} → ${esc(m.toName)}</p>
-<p>${esc(m.body)}</p>
-<p class="small">${esc(m.date)}</p>
+    let mine = messages.filter(m =>
+        m.from === current.email || m.to === current.email
+    );
 
-${m.to===current.email?
-`<button class="btn soft" onclick="replyMessage(${m.id})">Reply</button>`:""}
+    document.getElementById("messageList").innerHTML =
 
-</div>
-`).join("")||
-'<div class="empty">No messages yet.</div>';
+    mine.map(m => `
+
+        <div class="message">
+
+            <b>${esc(m.productName)}</b>
+
+            <p>${esc(m.fromName)} → ${esc(m.toName)}</p>
+
+            <p>${esc(m.body)}</p>
+
+            <p class="small">${esc(m.date)}</p>
+
+            ${m.to === current.email ? `
+
+                <button class="btn soft"
+                onclick="replyMessage(${m.id})">
+                    Reply
+                </button>
+
+            ` : ""}
+
+        </div>
+
+    `).join("") ||
+
+    '<div class="empty">No messages yet.</div>';
 }
+
+// REPLY MESSAGE
 
 function replyMessage(id){
-let m=messages.find(x=>x.id===id);
-if(!m)return;
 
-let body=prompt("Enter your reply:");
-if(!body||!body.trim())return;
+    let m = messages.find(x => x.id === id);
 
-messages.unshift({
-id:Date.now(),
-productId:m.productId,
-productName:m.productName,
-from:current.email,
-fromName:current.name,
-to:m.from,
-toName:m.fromName,
-body:body.trim(),
-date:new Date().toLocaleString()
-});
+    if(!m) return;
 
-save("rmProMessages",messages);
-renderMessages();
+    let body = prompt("Enter your reply:");
+
+    if(!body || !body.trim()) return;
+
+    messages.unshift({
+
+        id:Date.now(),
+
+        productId:m.productId,
+
+        productName:m.productName,
+
+        from:current.email,
+
+        fromName:current.name,
+
+        to:m.from,
+
+        toName:m.fromName,
+
+        body:body.trim(),
+
+        date:new Date().toLocaleString()
+
+    });
+
+    save("rmProMessages",messages);
+
+    renderMessages();
 }
 
-if(current)openApp();
+// AUTOMATIC LOGIN IF SESSION EXISTS
+
+if(current){
+
+    openApp();
+
+}
+
 </script>
 
 </body>
